@@ -54,6 +54,7 @@ public class BookPage extends PageBase{
     }
 
     public String getCopiesAvailable(){
+        sleep(1000);
         return copiesAvailable.getText();
     }
 
