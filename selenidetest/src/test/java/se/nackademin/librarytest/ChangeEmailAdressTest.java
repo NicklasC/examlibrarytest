@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static com.codeborne.selenide.Selenide.page;
 
 /**
- * Task 2: Change E-mail adress
+ * Task 2: Change E-mail address
  * @author nicklas
  */
 

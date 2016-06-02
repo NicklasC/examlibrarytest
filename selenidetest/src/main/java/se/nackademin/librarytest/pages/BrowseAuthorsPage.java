@@ -21,6 +21,10 @@ public class BrowseAuthorsPage extends PageBase{
     // First search hit gets this description
     @FindBy(css="td.v-grid-cell:nth-child(1) > a:nth-child(1)")
     private SelenideElement firstSearchResult;
+
+    @FindBy(css="#confirmdialog-ok-button")
+    SelenideElement confirmOkButton;
+    
     
     public void setName(String name){
         setTextFieldValue("name",name,nameField);
@@ -34,4 +38,13 @@ public class BrowseAuthorsPage extends PageBase{
     public void clickFirstSearchResult(){
         clickButton("first search result...",firstSearchResult);
     }
+    public boolean firstResultExists(){
+        return firstSearchResult.isDisplayed();
+    }
+    public void clickConfirmOkButton(){
+        clickButton("confirm OK",confirmOkButton);
+    }
+    
+    
+    
 }

@@ -24,7 +24,8 @@ public class AddAuthorPage extends PageBase{
     @FindBy(css="#add-author-button")
     private SelenideElement addAuthorButton;
     
-    
+    @FindBy(css="#save-author-button")
+    private SelenideElement saveChangesButton;
     
     public void setFirstName(String firstname){
         setTextFieldValue("username",firstname,firstNameField);
@@ -40,5 +41,8 @@ public class AddAuthorPage extends PageBase{
     }
     public void clickAddAuthorButton(){
         clickButton("author button",addAuthorButton);
+    }
+    public void clickSaveChangesButton(){
+        clickButton("save changes button",saveChangesButton);
     }
 }

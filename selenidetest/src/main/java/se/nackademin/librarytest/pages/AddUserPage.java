@@ -14,6 +14,12 @@ public class AddUserPage extends MenuPage {
     @FindBy(css="#add-user-button")
     SelenideElement addUserButton;
     
+    @FindBy(css="v-label v-widget v-label-undef-w")
+    SelenideElement errorMessage;
+    
+    @FindBy(css="span.v-radiobutton:nth-child(1)")
+    SelenideElement librarianRadioButton;
+    
     public void setUserName(String username){
         setTextFieldValue("user name field",username,userNameField);
     }
@@ -23,5 +29,11 @@ public class AddUserPage extends MenuPage {
     }
     public void clickAddUserButton(){
         clickButton("add user button", addUserButton);
+    }
+    public void clickAddLibrarianRadioButton(){
+        clickButton("add user radio button",librarianRadioButton);
+    }
+    public boolean errorMessageDisplays(){
+        return errorMessage.isDisplayed();
     }
 }

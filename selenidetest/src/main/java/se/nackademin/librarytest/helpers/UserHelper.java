@@ -6,6 +6,8 @@ import se.nackademin.librarytest.pages.MyProfilePage;
 import se.nackademin.librarytest.pages.SignInPage;
 import static com.codeborne.selenide.Selenide.page;
 import se.nackademin.librarytest.model.User;
+import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  *
@@ -15,7 +17,7 @@ public class UserHelper {
     
     static MenuPage menuPage = page(MenuPage.class);
     
-    public static void createNewUser(String userName, String passWord){
+    public static User createNewLoanerUser(String userName, String passWord){
         
         // Create profile
         menuPage.navigateToAddUser();
@@ -24,8 +26,35 @@ public class UserHelper {
         addUserPage.setUserName(userName);
         addUserPage.setPassword(passWord);
         addUserPage.clickAddUserButton();
+        
+        User user = new User();
+        user.setUserName(userName);
+        user.setPassword(passWord);
+        return user;
 
     }
+    public static User createNewLibraryUser(String userName, String passWord){
+
+        // Create profile
+        UserHelper.loginAsAdmin();
+        menuPage.navigateToAddUser();
+        
+        AddUserPage addUserPage = page(AddUserPage.class);
+        addUserPage.setUserName(userName);
+        addUserPage.setPassword(passWord);
+        addUserPage.clickAddLibrarianRadioButton();
+        addUserPage.clickAddUserButton();
+        
+        User user = new User();
+        user.setUserName(userName);
+        user.setPassword(passWord);
+        user.setIsLibrarian(true);
+        return user;
+    }
+    
+    
+    
+    
     public static void loginAsUser(String userName, String passWord){
         
         menuPage.navigateToSignIn();
@@ -33,6 +62,7 @@ public class UserHelper {
         signInPage.setUserName(userName);
         signInPage.setPassword(passWord);
         signInPage.clickLogInButton();
+        sleep(1000);
     }
     
     public static void updateUserEmailAdress(String newEmailAdress){
@@ -45,10 +75,15 @@ public class UserHelper {
         myProfilePage.setEmailAdress(newEmailAdress);
         myProfilePage.clickSaveUserButton();
     }
-    public static void createAndLoginNewUser(){
+    public static User createAndLoginNewUser(){
         User user = new User();
 
-        UserHelper.createNewUser(user.getUserName(), user.getPassword());
+        UserHelper.createNewLoanerUser(user.getUserName(), user.getPassword());
         UserHelper.loginAsUser(user.getUserName(), user.getPassword());
+        return user;
+    }
+    
+    public static void loginAsAdmin(){
+        UserHelper.loginAsUser("admin", "1234567890");
     }
 }
